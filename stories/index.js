@@ -138,7 +138,8 @@ storiesOf("Appointment", module)
   .add("Appointment with Time", () => <Appointment time="12pm" />)
   .add("Header", () => <Header time="12pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")}/>)
-  .add("Show", () => <Empty onEdit={action("onEdit")}/>)
+  .add("Show", () => <Show interviewers={interviewers} onEdit={action("onEdit")} onDelete={action("onDelete") }/>)
+  //.add("Show", () => <Show  interviewers={interviewers} onDelete={action("onDelete")}/>);
 
 
   
