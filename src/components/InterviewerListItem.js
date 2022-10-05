@@ -4,7 +4,6 @@ import classNames from "classnames";
 function InterviewerListItem(props) {
    const constantClass = "interviewers__item"
    const classValue = classNames(constantClass, {"interviewers__item--selected":props.selected})
-    console.log(classValue)
     const showingName = (props)=> {
         if(props.selected){
             return props.name
