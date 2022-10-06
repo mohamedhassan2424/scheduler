@@ -10,10 +10,8 @@ export function getAppointmentsForDay(state, day) {
         return [];
     }
 
-    const appotiments = sameDay.appointments.map((id) => {
-        return state.appointments[id];
-    })
+    return sameDay.appointments.map((id) => state.appointments[id]);
 
-    return appotiments;
+ 
 
 }
