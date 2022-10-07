@@ -29,6 +29,19 @@ function getInterview(state, interview) {
     }
     return interviewDataObject ;
 }
+function getInterviewersForDay (state,day){
+const sameDay = state.days.find(element => element.name === day)
+    if (!sameDay) {
+        return [];
+    }
+
+    const appotimentsofInterview = sameDay.appointments.map((id) => {
+        const interviewValue = state.appointments[id].interview
+        return state.interviewers[interviewValue]
+    })
+
+    return appotimentsofInterview;
+}
 
 
-module.exports = { getAppointmentsForDay, getInterview};
+module.exports = { getAppointmentsForDay, getInterview, getInterviewersForDay };
