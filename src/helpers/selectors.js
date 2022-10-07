@@ -3,15 +3,32 @@
     return filteredNames;
   }*/
 
-export function getAppointmentsForDay(state, day) {
+function getAppointmentsForDay(state, day) {
 
     const sameDay = state.days.find(element => element.name === day)
     if (!sameDay) {
         return [];
     }
 
-    return sameDay.appointments.map((id) => state.appointments[id]);
+    const appotiments = sameDay.appointments.map((id) => {
+        return state.appointments[id];
+    })
 
- 
+    return appotiments;
 
 }
+//interview  is an object with student name and interviewer number
+function getInterview(state, interview) {
+    if(!interview){
+        return null;
+    }
+    let interviewObject = state.interviewers[interview.interviewer]
+    const interviewDataObject = {
+        student:interview.student,
+        interviewer:interviewObject
+    }
+    return interviewDataObject ;
+}
+
+
+module.exports = { getAppointmentsForDay, getInterview};
