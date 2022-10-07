@@ -30,17 +30,21 @@ function getInterview(state, interview) {
     return interviewDataObject ;
 }
 function getInterviewersForDay (state,day){
+    const fulInterviewList = []
 const sameDay = state.days.find(element => element.name === day)
+//console.log("SAMEDAY",sameDay)
     if (!sameDay) {
         return [];
     }
 
-    const appotimentsofInterview = sameDay.appointments.map((id) => {
-        const interviewValue = state.appointments[id].interview
-        return state.interviewers[interviewValue]
+    sameDay.interviewers.forEach((id) => {
+        if(state.interviewers[id]){
+        fulInterviewList.push(state.interviewers[id])
+        //state.interviewers[interviewValue]
+        }
     })
-
-    return appotimentsofInterview;
+    console.log("fulInterviewList",fulInterviewList)
+    return fulInterviewList;
 }
 
 

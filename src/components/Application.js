@@ -46,7 +46,8 @@ export default function Application(props) {
         key={appointment.id}
         id={appointment.id}
         time={appointment.time}
-        interview={getInterviewersForDay(state,)}
+        interview={interview}
+        interviewers={getInterviewersForDay(state,state.day)}
       />
     );
   });
