@@ -24,6 +24,27 @@ const useApplicationData = () => {
         });
       }, []);
 
+      const updateSpots = (id,appotiments)=>{
+        const appointmentDay = state.days.find(specficDay => specficDay.appointments.includes(id))
+        let defaultSpots = appointmentDay.appointments.length
+        const spotsRemainging = appointmentDay.appointments.map((appointmentId) =>{
+            if(appotiments[appointmentId] && appotiments[appointmentId].interview){
+                defaultSpots-=1;
+                //{[...state.days,  ]}
+            }
+        })
+        const newDays = state.days.map((day)=>{
+            if(day.name === appointmentDay.name ){
+                return {...day, spots:defaultSpots}
+            }else{
+                return {...day}
+            }
+           
+        })
+        return newDays;
+        
+      }
+
       const bookInterview = (id, interview) => {
         console.log(id, interview);
         const appointment = {
@@ -34,12 +55,12 @@ const useApplicationData = () => {
           ...state.appointments,
           [id]: appointment
         };
-    
         return axios.put(`/api/appointments/${id}`, { interview })
           .then(() => {
-            setState({...state, appointments});
+            setState({...state, appointments, days:updateSpots(id,appointments)});
           })
       }
+
 
       const cancelInterview = (id) => {
         const appointment = {
@@ -53,7 +74,7 @@ const useApplicationData = () => {
     
         return axios.delete(`/api/appointments/${id}`)
           .then(() => {
-            setState({ ...state, appointments });
+            setState({ ...state, appointments, days:updateSpots(id,appointments) });
           })
       }
 return {setDay, state, bookInterview, cancelInterview }
