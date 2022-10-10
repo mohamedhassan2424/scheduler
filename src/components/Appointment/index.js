@@ -13,7 +13,8 @@ function Appointment(props) {
   const SHOW = "SHOW";
   const CREATE = "CREATE";
   const SAVING = "SAVING"
-
+  const DELETE ="DELETE"
+  const CANCEL = "CANCEL"
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -32,6 +33,9 @@ const save= (name, interviewer) =>{
     transition(SHOW)
   })
   
+  const cancelingPageLoading = () =>{
+    transition(CANCEL)
+  }
 }
 
   return (
@@ -42,9 +46,11 @@ const save= (name, interviewer) =>{
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={cancelingPageLoading}
         />)}
     {mode === CREATE && < Form interviewers={props.interviewers} onCancel={back} onSave={save} />}
     {mode === SAVING && <Status />}
+    {mode === CANCEL && }
     </article>
   );
 }
