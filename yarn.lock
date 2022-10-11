@@ -2217,7 +2217,7 @@
     "pretty-format" "^24.8.0"
     "wait-for-expect" "^1.2.0"
 
-"@testing-library/jest-dom@^4.0.0":
+"@testing-library/jest-dom@^4.2.4":
   "integrity" "sha512-j31Bn0rQo12fhCWOUWy9fl7wtqkp7In/YP2p5ZFyRuiiB9Qs3g+hS4gAmDWONbAHcRmVooNJ5eOHQDCOmUFXHg=="
   "resolved" "https://registry.npmjs.org/@testing-library/jest-dom/-/jest-dom-4.2.4.tgz"
   "version" "4.2.4"
