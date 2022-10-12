@@ -148,10 +148,10 @@ describe("Application", () => {
     expect(getByText(appointment,"Are you sure you would like to delete?")).toBeInTheDocument();
     fireEvent.click(getByAltText(appointment, "Confirm"));
     expect(getByText(appointment,"Deleting")).toBeInTheDocument();
-    await waitForElementToBeRemoved(() => getByText(appointment, "Mohamed Hassan"));
-    expect(getByText(appointment,"Could not save the appointment")).toBeInTheDocument();
+    await waitForElementToBeRemoved(() => getByText(appointment, "Deleteing"));
+    expect(getByText(appointment,"Could not cancel the appointment")).toBeInTheDocument();
     fireEvent.click(getByAltText(appointment,'Close'))
-    expect(getByTestId(appointment,"student-name-input")).toBeInTheDocument();
+    expect(getByText(appointment,"Archie Cohen")).toBeInTheDocument();
   })
 })
 
