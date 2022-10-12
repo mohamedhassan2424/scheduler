@@ -36,14 +36,14 @@ const sameDay = state.days.find(element => element.name === day)
     if (!sameDay) {
         return [];
     }
-    console.log("SAMEDAY",sameDay)
+    //console.log("SAMEDAY",sameDay)
     sameDay.interviewers.forEach((id) => {
         if(state.interviewers[id]){
         fulInterviewList.push(state.interviewers[id])
         //state.interviewers[interviewValue]
         }
     })
-    console.log("fulInterviewList",fulInterviewList)
+    //console.log("fulInterviewList",fulInterviewList)
     return fulInterviewList;
 }
 

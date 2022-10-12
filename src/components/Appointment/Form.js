@@ -24,7 +24,7 @@ function Form(props) {
         
     }
  const validate = () =>{
-    console.log("HELLO WORLDDDD")
+    //console.log("HELLO WORLDDDD")
         if (student === "") {
           setError("Student name cannot be blank");
           return;
