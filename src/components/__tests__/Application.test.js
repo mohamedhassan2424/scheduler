@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId,getByAltText ,getByPlaceholderText,queryByText,queryByAltText,getByTestId} from "@testing-library/react";
+import { render, cleanup, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId,getByAltText ,getByPlaceholderText,queryByText,queryByAltText,getByTestId, waitForElementToBeRemoved} from "@testing-library/react";
 
 import Application from "components/Application";
 afterEach(cleanup);
@@ -119,5 +119,39 @@ describe("Application", () => {
   
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   });
+  it("shows the save error when failing to save an appointment",async()=>{
+    const { container } = render(<Application />);
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
+    fireEvent.click(getByAltText(appointment, "Add"));
+    fireEvent.change(getByTestId(appointment, "student-name-input"), {
+      target: { value: "Mohamed Hassan" }
+    });
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+    fireEvent.click(getByText(appointment,"Save"))
+    await waitForElementToBeRemoved(() => getByText(appointment, "Mohamed Hassan"));
+    expect(getByText(appointment,"Could not save the appointment")).toBeInTheDocument();
+    fireEvent.click(getByAltText(appointment,'Close'))
+    expect(getByTestId(appointment,"student-name-input")).toBeInTheDocument();
+  })
+  it("shows the delete error when failing to delete an existing appointment",async()=>{
+    const { container } = render(<Application />);
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
+    fireEvent.click(getByAltText(appointment, "Delete"));
+    expect(getByText(appointment,"Are you sure you would like to delete?")).toBeInTheDocument();
+    fireEvent.click(getByAltText(appointment, "Confirm"));
+    expect(getByText(appointment,"Deleting")).toBeInTheDocument();
+    await waitForElementToBeRemoved(() => getByText(appointment, "Mohamed Hassan"));
+    expect(getByText(appointment,"Could not save the appointment")).toBeInTheDocument();
+    fireEvent.click(getByAltText(appointment,'Close'))
+    expect(getByTestId(appointment,"student-name-input")).toBeInTheDocument();
+  })
 })
 
