@@ -123,16 +123,18 @@ describe("Application", () => {
     const { container } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
-    const appointment = getAllByTestId(container, "appointment").find(
-      appointment => queryByText(appointment, "Archie Cohen")
-    );
+    const appointments = getAllByTestId(container, "appointment");
+    const appointment = appointments[0];
+  
     fireEvent.click(getByAltText(appointment, "Add"));
     fireEvent.change(getByTestId(appointment, "student-name-input"), {
       target: { value: "Mohamed Hassan" }
     });
+    console.log(prettyDOM(container))
+    expect(queryByText(appointment,"Mohamed Hassan")).toBeInTheDocument();
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
     fireEvent.click(getByText(appointment,"Save"))
-    await waitForElementToBeRemoved(() => getByText(appointment, "Mohamed Hassan"));
+    await waitForElementToBeRemoved(() => queryByText(appointment, "Mohamed Hassan"));
     expect(getByText(appointment,"Could not save the appointment")).toBeInTheDocument();
     fireEvent.click(getByAltText(appointment,'Close'))
     expect(getByTestId(appointment,"student-name-input")).toBeInTheDocument();
@@ -146,11 +148,12 @@ describe("Application", () => {
     );
     fireEvent.click(getByAltText(appointment, "Delete"));
     expect(getByText(appointment,"Are you sure you would like to delete?")).toBeInTheDocument();
-    fireEvent.click(getByAltText(appointment, "Confirm"));
+    fireEvent.click(queryByText(appointment, "Confirm"));
     expect(getByText(appointment,"Deleting")).toBeInTheDocument();
-    await waitForElementToBeRemoved(() => getByText(appointment, "Deleteing"));
-    expect(getByText(appointment,"Could not cancel the appointment")).toBeInTheDocument();
-    fireEvent.click(getByAltText(appointment,'Close'))
+    await waitForElementToBeRemoved(() => getByText(appointment, "Deleting"));
+    expect(queryByText(appointment,"Could not cancel the appointment")).toBeInTheDocument();
+    //console.log(prettyDOM(appointment))
+    fireEvent.click(queryByAltText(appointment,'Close'))
     expect(getByText(appointment,"Archie Cohen")).toBeInTheDocument();
   })
 })
