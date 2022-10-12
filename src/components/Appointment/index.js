@@ -68,15 +68,15 @@ function Appointment(props) {
       {mode === CREATE && (
         <Form interviewers={props.interviewers} onCancel={back} onSave={save} />
       )}
-      {mode === SAVING && <Status />}
+      {mode === SAVING && <Status message="Saving" />}
       {mode === CANCEL && (
         <Confirm
-          message="Are you sure you would like to Delete it ?"
+          message="Are you sure you would like to delete?"
           onConfirm={cancel}
           onCancel={back}
         />
       )}
-      {mode === DELETING && <Status message="Deleting Page" />}
+      {mode === DELETING && <Status message="Deleting" />}
       {mode === EDIT && <Form  
       student={props.interview.student}
       interviewer={props.interview.interviewer.id}
